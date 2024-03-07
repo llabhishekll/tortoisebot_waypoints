@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="tortoisebot_waypoints" type="tortoisebot_action_server.py" name="tortoisebot_as" />
+  <test pkg="tortoisebot_waypoints" type="tortoisebot_action_server_test.py" test-name="tortoisebot_as_test" />
+</launch>
