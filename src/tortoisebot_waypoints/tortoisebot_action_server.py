@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 import rospy
-import time
 import math
 import actionlib
 
@@ -10,8 +9,7 @@ from tortoisebot_waypoints.msg import (
     WaypointActionAction,
 )
 from geometry_msgs.msg import Twist
-from std_msgs.msg import Empty
-from geometry_msgs.msg import Twist, Point
+from geometry_msgs.msg import Point
 from nav_msgs.msg import Odometry
 from tf import transformations
 
