@@ -33,6 +33,7 @@ class TestWaypointsActionServer(unittest.TestCase):
         # error
         self.error_x = 0.0
         self.error_y = 0.0
+        self.error_yaw = 0.0
 
         # send goal
         self.timeout = rospy.Duration(30)
@@ -40,8 +41,7 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.send_action_goal(0.25, 0.25)
 
     def tearDown(self):
-        # self.subscriber.unregister()
-        pass
+        self.subscriber.unregister()
 
     def subscriber_odom_callback(self, msg):
         # reading current position from /odom topic
@@ -58,6 +58,9 @@ class TestWaypointsActionServer(unittest.TestCase):
         self.yaw = math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
 
     def send_action_goal(self, x, y):
+        # target yaw
+        yaw = math.atan2(y - self.y, x - self.x)
+
         # define goal
         self.goal: WaypointActionGoal = WaypointActionGoal()
         self.goal.position.x = x
@@ -73,11 +76,11 @@ class TestWaypointsActionServer(unittest.TestCase):
         # calculate error
         self.error_x = self.goal.position.x - self.x
         self.error_y = self.goal.position.y - self.y
+        self.error_yaw = yaw - self.yaw
 
     def test_orientation(self):
         # Test Case 1 : validate robot orientation error
-        error_yaw = math.atan2(self.error_y, self.error_x) - self.yaw
-        self.assertTrue(abs(error_yaw) <= 2.50, "Test Case 1, Failed")
+        self.assertTrue(abs(self.error_yaw) <= 2.50, "Test Case 1, Failed")
 
     def test_position(self):
         # Test Case 2 : validate robot position error
