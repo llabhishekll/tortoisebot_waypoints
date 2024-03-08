@@ -10,10 +10,12 @@ project(tortoisebot_waypoints)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   message_generation
-  std_msgs
-  actionlib_msgs
-  geometry_msgs
   actionlib
+  actionlib_msgs
+  tf
+  std_msgs
+  nav_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
