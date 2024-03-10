@@ -21,7 +21,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
 # build
 add_executable(tortoisebot_action_server src/tortoisebot_action_server.cpp)
-ament_target_dependencies(tortoisebot_action_server rclcpp rclcpp_action nav_msgs geometry_msgs tortoisebot_waypoints)
+ament_target_dependencies(tortoisebot_action_server rclcpp rclcpp_action nav_msgs geometry_msgs)
+rosidl_target_interfaces(tortoisebot_action_server ${PROJECT_NAME} "rosidl_typesupport_cpp") # FIX
 
 # install
 install(TARGETS tortoisebot_action_server DESTINATION lib/${PROJECT_NAME})
@@ -37,7 +38,8 @@ if(BUILD_TESTING)
 
   # build test
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp rclcpp_action nav_msgs geometry_msgs tortoisebot_waypoints)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp rclcpp_action nav_msgs geometry_msgs)
+  rosidl_target_interfaces(${PROJECT_NAME}_test ${PROJECT_NAME} "rosidl_typesupport_cpp")
   
   # install test
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
